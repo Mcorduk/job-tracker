@@ -36,12 +36,6 @@ const jobSchema = new Schema({
     enum: ["hourly", "daily", "weekly", "monthly", "yearly"],
     default: null, // Default to empty string for non-repeating jobs
   },
-
-  // Other job-related fields as needed may be added in the future
-  // Such as:
-  // status: { type: String, enum: ["new", "in-progress", "completed"] }, // New field for job status
-  // assignedTo: { type: Schema.Types.ObjectId, ref: "User" }, // New field for assigned user (references User model)
-  // priority: { type: Number, min: 1, max: 5 }, // New field for job priority
 });
 
 // Virtual for job's URL
@@ -62,3 +56,10 @@ Job.schema.index({ title: "text" }); // Create an index for text search on title
 Job.schema.index({ date: 1 }); // Create an index for sorting by date
 
 module.exports = Job;
+
+/* Other job-related fields as needed may be added in the future
+ Such as:
+ status: { type: String, enum: ["new", "in-progress", "completed"] }, // New field for job status
+ assignedTo: { type: Schema.Types.ObjectId, ref: "User" }, // New field for assigned user (references User model)
+ priority: { type: Number, min: 1, max: 5 }, // New field for job priority
+*/
