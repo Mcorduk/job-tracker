@@ -16,6 +16,7 @@ const app = express();
 
 mongoose.set("strictQuery", false);
 
+console.log("Loading environment variables...");
 // Load environment variables from a .env file using the dotenv package
 // eslint-disable-next-line import/no-extraneous-dependencies
 require("dotenv").config();
@@ -26,14 +27,12 @@ if (!process.env.MONGODB_URI) {
   process.exit(1); // Exit the application with an error code
 }
 
+console.log("Connecting to MongoDB...");
 // Retrieve the MongoDB connection URL from the environment variables
 const mongoURL = process.env.MONGODB_URI;
 
 // Connect to MongoDB using Mongoose with specified options
-mongoose.connect(mongoURL, {
-  useNewUrlParser: true, // Use the new MongoDB driver's parser
-  useUnifiedTopology: true, // Use the new server discovery and monitoring engine
-});
+mongoose.connect(mongoURL);
 
 // Asynchronous function to connect to MongoDB
 async function main() {
@@ -77,5 +76,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render("error");
 });
+
+console.log("Express app listening on port 3000");
 
 module.exports = app;
