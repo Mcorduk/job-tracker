@@ -4,7 +4,12 @@ module.exports = {
     commonjs: true,
     es2021: true,
   },
-  extends: ["airbnb-base", "prettier"],
+  extends: [
+    "airbnb-base",
+    "prettier",
+    "eslint:recommended",
+    "plugin:node/recommended",
+  ],
   overrides: [
     {
       env: {
@@ -28,7 +33,7 @@ module.exports = {
     "func-names": "off", // Non arrow functions in Schema virtuals error
     "no-underscore-dangle": ["error", { allow: ["_id"] }], // _id error in Schemas
   },
-  plugins: ["import"],
+  plugins: ["import", "node"],
   settings: {
     "import/resolver": {
       node: {},
