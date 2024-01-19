@@ -25,6 +25,8 @@ module.exports = {
     "no-console": "off", // Allowing console.log in server-side code
     "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
     "no-unused-vars": ["error", { argsIgnorePattern: "^next$|^req$" }],
+    "func-names": "off", // Non arrow functions in Schema virtuals error
+    "no-underscore-dangle": ["error", { allow: ["_id"] }], // _id error in Schemas
   },
   plugins: ["import"],
   settings: {

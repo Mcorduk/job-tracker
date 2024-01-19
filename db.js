@@ -1,3 +1,5 @@
+// Import the Mongoose library for MongoDB interactions
+const mongoose = require("mongoose");
 // Load environment variables from a .env file using the dotenv package
 require("dotenv").config();
 
@@ -6,9 +8,6 @@ if (!process.env.MONGODB_URI) {
   console.error("Error: MONGODB_URI is not set in the environment variables.");
   process.exit(1); // Exit the application with an error code
 }
-
-// Import the Mongoose library for MongoDB interactions
-const mongoose = require("mongoose");
 
 // Set `strictQuery: false` to globally opt into filtering by properties that aren't in the schema
 // Included because it removes preparatory warnings for Mongoose 7.
