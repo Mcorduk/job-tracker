@@ -10,10 +10,10 @@
 <body>
   <h1>Create New Job</h1>
 
-  <form action="/jobs" method="POST">
+  <form action="/form" method="POST">
     <div>
       <label for="title">Job Title:</label>
-      <input type="text" id="title" name="title" required maxlength="50" minlength="5">
+      <input type="text" id="title" name="title" required minlength="4" maxlength="50">
       <span class="error-message" id="title-error"></span>
     </div>
 

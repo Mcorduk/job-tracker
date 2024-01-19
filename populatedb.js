@@ -39,7 +39,7 @@ const insertData = async () => {
     const dummyReminders = savedJobs.map((job) => ({
       jobId: job._id, // Assign the correct _id
       reminderDate: job.date,
-      notes: "Don't forget about this important task!",
+      notes: "Don't forget about this(?) important task!",
     }));
 
     await Reminder.insertMany(dummyReminders);
