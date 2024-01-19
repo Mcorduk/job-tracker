@@ -4,8 +4,8 @@ const jobSchema = new Schema({
   title: {
     type: String,
     required: true,
-    minlength: 5, // Minimum length of 5 characters
-    maxlength: 50, // Maximum length of 50 characters
+    minlength: 5,
+    maxlength: 50,
   },
   description: { type: String, maxlength: 500, default: "" },
   date: {
@@ -19,17 +19,24 @@ const jobSchema = new Schema({
       message: "Date must be in the future",
     },
   },
+  // Option for a job is repeating or not
   repeating: {
     type: Boolean,
     default: false,
-    enum: ["hourly", "daily", "weekly", "monthly", "yearly"],
     validate: {
       validator(value) {
-        return !(this.repeating && !value); // Only allows true when a valid enum value is set
+        return !(value && !this.repeatingFrequency); // Ensure frequency is present if repeating is true
       },
-      message: "Repeating flag can only be true with a valid frequency",
+      message: "Repeating jobs must have a repeating frequency",
     },
   },
+
+  repeatingFrequency: {
+    type: String,
+    enum: ["hourly", "daily", "weekly", "monthly", "yearly"],
+    default: "", // Default to empty string for non-repeating jobs
+  },
+
   // Other job-related fields as needed may be added in the future
   // Such as:
   // status: { type: String, enum: ["new", "in-progress", "completed"] }, // New field for job status
@@ -37,10 +44,15 @@ const jobSchema = new Schema({
   // priority: { type: Number, min: 1, max: 5 }, // New field for job priority
 });
 
-// Virtual for genre's URL
+// Virtual for job's URL
 jobSchema.virtual("url").get(function () {
   // We don't use an arrow function as we'll need the this object
   return `/jobs/${this._id}`;
+});
+
+// Virtual to easily access the jobs associated reminders
+jobSchema.virtual("reminders").get(function () {
+  return this.model("Reminder").find({ jobId: this._id });
 });
 
 const Job = model("Job", jobSchema);
