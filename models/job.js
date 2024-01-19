@@ -34,7 +34,7 @@ const jobSchema = new Schema({
   repeatingFrequency: {
     type: String,
     enum: ["hourly", "daily", "weekly", "monthly", "yearly"],
-    default: "", // Default to empty string for non-repeating jobs
+    default: null, // Default to empty string for non-repeating jobs
   },
 
   // Other job-related fields as needed may be added in the future

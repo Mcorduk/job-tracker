@@ -13,7 +13,6 @@ const reminderSchema = new Schema({
   // - userReference: { type: Schema.Types.ObjectId, ref: "User", comment: "Links the reminder to the intended recipient" },
   // - notificationChannel: { type: String, enum: ["email", "sms", "in-app"], comment: "Specifies the preferred method for delivering the reminder notification" },
   // - status: { type: String, enum: ["pending", "sent", "acknowledged"], comment: "Tracks the current status of the reminder for monitoring and re-sending" },
-  // TODO: Add virtual URL to jobs and set other virtuals to the schema
 });
 
 const Reminder = model("Reminder", reminderSchema);

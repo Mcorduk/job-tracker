@@ -28,30 +28,27 @@ const generateDummyJobs = () => {
   return dummyJobs;
 };
 
-const createDummyReminders = (jobs) => {
-  const dummyReminders = jobs.map((job) => ({
-    jobId: job._id,
-    reminderDate: new Date(job.date - 1 * 24 * 60 * 60 * 1000), // Set reminder a day before the job
-    notes: "Don't forget about this important task!",
-  }));
-
-  return dummyReminders;
-};
-
 const insertData = async () => {
   try {
-    await connectToMongo(); // Establish the database connection
+    await connectToMongo();
 
-    const dummyJobs = generateDummyJobs();
-    await Job.insertMany(dummyJobs);
+    // Insert jobs first to generate _id values
+    const savedJobs = await Job.insertMany(generateDummyJobs());
 
-    const dummyReminders = createDummyReminders(dummyJobs);
+    // Create reminders using the generated _id values
+    const dummyReminders = savedJobs.map((job) => ({
+      jobId: job._id, // Assign the correct _id
+      reminderDate: job.date,
+      notes: "Don't forget about this important task!",
+    }));
+
     await Reminder.insertMany(dummyReminders);
 
     console.log("Dummy data inserted successfully!");
+    process.exit(0);
   } catch (error) {
     console.error("Error inserting data:", error);
+    process.exit(1);
   }
 };
-
 insertData();
