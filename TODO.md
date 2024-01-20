@@ -20,11 +20,14 @@
 - [ ] Add a url to Reminder, ("notes" key?), redirecting to job its reminding
 - [ ] Recheck indexing for best possible optimization
 - [ ] Decide notification channel: Print(default), desktop notif, alert, email?
+- [ ] Add "custom" pane to repeating jobs:
+      https://support.microsoft.com/en-gb/office/recurring-tasks-in-planner-9f2561ee-45ee-4834-955b-c457f8bb0490
 
 ## Low Priority
 
 - [ ] Add Time (Hour, minute, second) validation for `form/`
 - [ ] Improve HTML Semantics and accessibility for `form.ejs`
+- [ ] ~~Adjust cron for daylight savings (No daylight savings in Turkey)~~
 
 ## General
 
