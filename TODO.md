@@ -17,7 +17,7 @@
 ## Medium Priority
 
 - [ ] Add indication that the Job was sent or encountered an error
-- [ ] Add a url to Reminder, redirecting to job its reminding
+- [ ] Add a url to Reminder, ("notes" key?), redirecting to job its reminding
 - [ ] Recheck indexing for best possible optimization
 - [ ] Decide notification channel: Print(default), desktop notif, alert, email?
 
@@ -36,6 +36,7 @@
 
 - [ ] Add a "created at" key value to jobs
 - [ ] A library to handle job frequency feature
+- [ ] Add Edit Job functionality, if you do Add modifiedAt to Job Schema
 
 ## Wishful Thinking
 

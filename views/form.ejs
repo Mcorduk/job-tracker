@@ -22,6 +22,7 @@
       <textarea id="description" name="description" maxlength="500"></textarea>
     </div>
 
+    <!-- Not using type="datetime-local" due to min and max not respecting restrictions -->
     <div>
       <label for="date">Date:</label>
       <input type="date" id="date" name="date" required min="<%= minDate %>" max="<%= maxDate %>">

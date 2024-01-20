@@ -15,7 +15,6 @@ const app = express();
 // db setup
 // Asynchronous function to connect to MongoDB
 async function main() {
-  // Use the 'await' keyword to make sure the connection is established before proceeding
   await connectToMongo();
 }
 

@@ -6,7 +6,7 @@ const Job = require("../models/job");
 const Reminder = require("../models/reminder");
 
 // body-parser middleware to parse form data
-router.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.urlencoded({ extended: true })); // extended: true to be able to deal with complex data structures in form
 
 // Handle GET request for the form page
 router.get("/", (req, res, next) => {
@@ -18,7 +18,7 @@ router.get("/", (req, res, next) => {
     now.getDate(),
   )
     .toISOString()
-    .split("T")[0]; // Extract the date part
+    .split("T")[0];
 
   res.render("form", { minDate, maxDate });
 });
@@ -28,23 +28,21 @@ router.get("/success", (req, res, next) => {
   res.render("success", {});
 });
 
-// Handle POST request from the form
+// Handle POST request from the form submit
 router.post("/", async (req, res) => {
   try {
-    // Extract data from the form submission
     const { title, description, date, time, repeating, repeatingFrequency } =
       req.body;
 
-    // Create a new Job document in MongoDB
     const newJob = new Job({
       title,
       description,
-      date: new Date(`${date} ${time}`), // Combine date and time into a single Date object
+      date: new Date(`${date} ${time}`),
       repeating: repeating === "on", // Convert checkbox value to a boolean
-      repeatingFrequency: repeating === "on" ? repeatingFrequency : null, // Set null if repeating is false
+      repeatingFrequency: repeating === "on" ? repeatingFrequency : null, //
     });
 
-    // Save the new job to the database first to generate _id values
+    // Save the new job to database first to generate job._id values for Reminder
     const savedJob = await newJob.save();
 
     const newReminder = new Reminder({
@@ -53,10 +51,9 @@ router.post("/", async (req, res) => {
       notes: "Don't forget about this(?) important task!",
     });
 
-    // Save the new reminder to the database
     await newReminder.save();
 
-    // Optionally, redirect the user to a success page
+    // Redirect the user to success page
     res.redirect("/form/success");
   } catch (error) {
     // Handle any errors that occurred during form submission
