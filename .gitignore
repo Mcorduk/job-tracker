@@ -35,3 +35,6 @@ npm-debug.log
 .DS_Store
 
 .env
+# documentation
+jobFrequency.md
+cron.js
