@@ -1,12 +1,10 @@
-// Import the Mongoose library for MongoDB interactions
 const mongoose = require("mongoose");
 // Load environment variables from a .env file using the dotenv package
 require("dotenv").config();
 
-// Check if the required environment variables are present
 if (!process.env.MONGODB_URI) {
   console.error("Error: MONGODB_URI is not set in the environment variables.");
-  process.exit(1); // Exit the application with an error code
+  process.exit(1);
 }
 
 // Set `strictQuery: false` to globally opt into filtering by properties that aren't in the schema
@@ -15,7 +13,6 @@ if (!process.env.MONGODB_URI) {
 mongoose.set("strictQuery", false);
 
 console.log("Connecting to MongoDB...");
-// Retrieve the MongoDB connection URL from the environment variables
 const mongoURL = process.env.MONGODB_URI;
 
 async function connectToMongo() {
@@ -24,7 +21,7 @@ async function connectToMongo() {
     console.log("Connected to MongoDB");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
-    process.exit(1); // Exit with an error code
+    process.exit(1);
   }
 }
 

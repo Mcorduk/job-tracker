@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
       description,
       date: new Date(`${date} ${time}`),
       repeating: repeating === "on", // Convert checkbox value to a boolean
-      repeatingFrequency: repeating === "on" ? repeatingFrequency : null, //
+      repeatingFrequency: repeating === "on" ? repeatingFrequency : null,
     });
 
     // Save the new job to database first to generate job._id values for Reminder
@@ -56,7 +56,6 @@ router.post("/", async (req, res) => {
     // Redirect the user to success page
     res.redirect("/form/success");
   } catch (error) {
-    // Handle any errors that occurred during form submission
     console.error(error);
     res.status(500).send("Internal Server Error");
   }

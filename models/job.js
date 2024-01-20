@@ -1,6 +1,10 @@
 const { Schema, model } = require("mongoose");
 
 const jobSchema = new Schema({
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
   title: {
     type: String,
     required: true,
