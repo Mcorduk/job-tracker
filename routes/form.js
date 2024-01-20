@@ -56,8 +56,17 @@ router.post("/", async (req, res) => {
     // Redirect the user to success page
     res.redirect("/form/success");
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
+    if (error.name === "ValidationError") {
+      // Mongoose validation error
+      let errors = {};
+      for (const field in error.errors) {
+        errors[field] = error.errors[field].message;
+      }
+      res.status(400).json({ errors });
+    } else {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
   }
 });
 
