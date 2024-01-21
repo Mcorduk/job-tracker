@@ -50,9 +50,8 @@ jobSchema.virtual("url").get(function () {
 
 const Job = model("Job", jobSchema);
 
-// FIXME Indices might need to be adjusted in the future
-Job.schema.index({ title: "text" }); // Create an index for text search on title
-Job.schema.index({ dueDate: 1 }); // Create an index for sorting by date
+// Apply the compound index for efficient due date prioritization:
+Job.schema.index({ dueDate: 1, _id: 1 }, { name: "dueDate_id_index" });
 
 module.exports = Job;
 
