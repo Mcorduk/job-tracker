@@ -3,9 +3,31 @@ const cron = require("cron");
 
 jest.mock("cron");
 
-describe("createCronJob", () => {
+describe("createCronJob - (6) Successful Scenarios", () => {
   afterEach(() => {
     cron.CronJob.mockClear(); // Clear mock calls after each test
+  });
+
+  it("should create a one-time cron job with the correct expression", async () => {
+    const date = new Date(2024, 0, 20, 15, 30); // Set a specific date and time
+    const jobReference = createCronJob(date, null);
+
+    const selectedMinute = date.getMinutes();
+    const selectedHour = date.getHours();
+    const selectedDay = date.getDay(); // Day of Week: [0-6]/[Sunday to Saturday]
+    const selectedDate = date.getDate(); // Day of Month: [1-31]
+    const selectedMonth = date.getMonth() + 1; // .getMonth is 0-11 but cron is 1-12
+    const expectedExpression = `${selectedMinute} ${selectedHour} ${selectedDate} ${selectedMonth} *`;
+    expect(cron.CronJob).toHaveBeenCalledWith(
+      expectedExpression,
+      expect.any(Function),
+      null,
+      true,
+    );
+    expect(jobReference).toBeDefined();
+    expect(jobReference.job).toBeInstanceOf(cron.CronJob);
+    expect(jobReference.start).toBeInstanceOf(Function);
+    expect(jobReference.stop).toBeInstanceOf(Function);
   });
 
   it("should create an hourly cron job with the correct expression", async () => {
@@ -19,6 +41,10 @@ describe("createCronJob", () => {
       null,
       true,
     );
+    expect(jobReference).toBeDefined();
+    expect(jobReference.job).toBeInstanceOf(cron.CronJob);
+    expect(jobReference.start).toBeInstanceOf(Function);
+    expect(jobReference.stop).toBeInstanceOf(Function);
   });
 
   it("should create a daily cron job at a specific time", async () => {
@@ -32,6 +58,10 @@ describe("createCronJob", () => {
       null,
       true,
     );
+    expect(jobReference).toBeDefined();
+    expect(jobReference.job).toBeInstanceOf(cron.CronJob);
+    expect(jobReference.start).toBeInstanceOf(Function);
+    expect(jobReference.stop).toBeInstanceOf(Function);
   });
 
   it("should create a weekly cron job on a Monday ", async () => {
@@ -45,6 +75,10 @@ describe("createCronJob", () => {
       null,
       true,
     );
+    expect(jobReference).toBeDefined();
+    expect(jobReference.job).toBeInstanceOf(cron.CronJob);
+    expect(jobReference.start).toBeInstanceOf(Function);
+    expect(jobReference.stop).toBeInstanceOf(Function);
   });
 
   it("should create a weekly cron job on a Saturday ", async () => {
@@ -58,6 +92,10 @@ describe("createCronJob", () => {
       null,
       true,
     );
+    expect(jobReference).toBeDefined();
+    expect(jobReference.job).toBeInstanceOf(cron.CronJob);
+    expect(jobReference.start).toBeInstanceOf(Function);
+    expect(jobReference.stop).toBeInstanceOf(Function);
   });
 
   it("should create a weekly cron job on a Friday", async () => {
@@ -71,7 +109,53 @@ describe("createCronJob", () => {
       null,
       true,
     );
+    expect(jobReference).toBeDefined();
+    expect(jobReference.job).toBeInstanceOf(cron.CronJob);
+    expect(jobReference.start).toBeInstanceOf(Function);
+    expect(jobReference.stop).toBeInstanceOf(Function);
   });
 
   // Add more tests for other frequencies, error handling, and edge cases
+});
+
+describe("createCronJob - (6) Failure Scenarios", () => {
+  afterEach(() => {
+    cron.CronJob.mockClear();
+  });
+
+  it("should throw an error for an unsupported job frequency", async () => {
+    const date = new Date();
+    expect(() => createCronJob(date, "invalid-frequency")).toThrowError(
+      "Unsupported job frequency: invalid-frequency",
+    );
+  });
+
+  it("should throw an error for a non-date parameter", async () => {
+    expect(() => createCronJob("invalid-date")).toThrowError(
+      "Invalid date parameter",
+    );
+  });
+
+  it("should throw an error for a null date parameter", async () => {
+    expect(() => createCronJob(null)).toThrowError("Invalid date parameter");
+  });
+
+  it("should throw an error for a negative minute value", async () => {
+    const date = new Date();
+    date.setMinutes(-1);
+    expect(() => createCronJob(date)).toThrowError("Invalid minute value: -1");
+  });
+
+  it("should throw an error for an invalid repeating frequency", async () => {
+    const date = new Date();
+    expect(() => createCronJob(date, "invalid-frequency")).toThrowError(
+      "Unsupported job frequency: invalid-frequency",
+    );
+  });
+
+  it("should throw an error for an invalid date parameter", async () => {
+    expect(() => createCronJob("invalid-date")).toThrowError(
+      "Invalid date parameter",
+    );
+  });
 });
