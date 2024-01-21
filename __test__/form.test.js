@@ -12,7 +12,7 @@ describe("Form Submission", () => {
     const response = await request(app).post("/form").send({
       title: "Test Successful Job",
       description: "Testing for a successfull submit.",
-      date: "2025-01-01",
+      dueDate: "2025-01-01",
       time: "12:00",
       repeating: "on",
       repeatingFrequency: "daily",
@@ -45,7 +45,7 @@ describe("Form Submission", () => {
         title: "Test Successful Job",
         description:
           "Testing for a successful submit of job that is a minute from now.",
-        date: futureDate.toISOString().split("T")[0],
+        dueDate: futureDate.toISOString().split("T")[0],
         time: `${currentHour}:${currentMinute}`,
         repeating: "on",
         repeatingFrequency: "daily",
@@ -61,7 +61,7 @@ describe("Form Submission", () => {
       title: "",
       description:
         "This is a test job for unsuccessful submit. Reason: empty title",
-      date: "2025-01-01",
+      dueDate: "2025-01-01",
       time: "12:00",
       repeating: false,
       repeatingFrequency: null,
@@ -76,7 +76,7 @@ describe("Form Submission", () => {
     const response = await request(app).post("/form").send({
       title: "Test Invalid Date Job",
       description: "Testing for an unsuccessful submit due to invalid date.",
-      date: "invalid-date",
+      dueDate: "invalid-date",
       time: "12:00",
       repeating: false,
       repeatingFrequency: null,
@@ -91,7 +91,7 @@ describe("Form Submission", () => {
     const response = await request(app).post("/form").send({
       title: "Test Past Date Job",
       description: "Testing for an unsuccessful submit due to a past date.",
-      date: "2020-01-01",
+      dueDate: "2020-01-01",
       time: "12:00",
       repeating: false,
       repeatingFrequency: null,
@@ -105,7 +105,7 @@ describe("Form Submission", () => {
     const response = await request(app).post("/form").send({
       title: "Test Missing Time Job",
       description: "Testing for an unsuccessful submit due to missing time.",
-      date: "2025-01-01",
+      dueDate: "2025-01-01",
       repeating: false,
       repeatingFrequency: null,
     });

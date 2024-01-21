@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const Job = require("../models/job");
 const Reminder = require("../models/reminder");
 const isJobDue = require("../utils/isJobDue");
+const { now } = require("mongoose");
 
 // body-parser middleware to parse form data
 router.use(bodyParser.urlencoded({ extended: true })); // extended: true to be able to deal with complex data structures in form
@@ -37,9 +38,11 @@ new cron.CronJob(
       const activeJobs = await Job.find({ repeating: true });
 
       activeJobs.forEach(async (job) => {
+        // FIXME Form submitted is in activeJobs
+        // But only the test 1 minute job passes is JobDue
+        // Conclusion, fix isJobDue
         if (isJobDue(job)) {
           // Create a single reminder for the current due date
-          console.log(job.date);
           const reminder = new Reminder({
             jobId: job._id,
             reminderDate: new Date(),
@@ -49,7 +52,7 @@ new cron.CronJob(
 
           // Trigger notification (for simplicity, print to console)
           console.log(
-            `Notification: Job "${job.title}" is due on ${new Date()}`,
+            `Notification: Job "${job.title}" is due on ${job.dueDate}`,
           );
         }
       });
@@ -64,13 +67,13 @@ new cron.CronJob(
 // Handle POST request from the form submit
 router.post("/", async (req, res) => {
   try {
-    const { title, description, date, time, repeating, repeatingFrequency } =
+    const { title, description, dueDate, time, repeating, repeatingFrequency } =
       req.body;
 
     const newJob = new Job({
       title,
       description,
-      date: new Date(`${date} ${time}`),
+      dueDate: new Date(`${dueDate} ${time}`),
       repeating: repeating === "on", // Convert checkbox value to a boolean
       repeatingFrequency: repeating === "on" ? repeatingFrequency : null,
     });
@@ -80,16 +83,16 @@ router.post("/", async (req, res) => {
 
     const newReminder = new Reminder({
       jobId: savedJob._id,
-      reminderDate: savedJob.date,
+      reminderDate: savedJob.dueDate,
       notes: "I should be created by cron on repeating tasks!",
     });
 
     await newReminder.save();
-
+    //FIXME I don't even get evaluated, just sitting here
     if (!repeating) {
       const newReminder = new Reminder({
         jobId: savedJob._id,
-        reminderDate: savedJob.date, // Use job's date for non-repeating jobs
+        reminderDate: savedJob.dueDate, // Use job's date for non-repeating jobs
         notes: "Don't forget about this(?) important task!",
       });
       await newReminder.save();

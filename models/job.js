@@ -12,7 +12,7 @@ const jobSchema = new Schema({
     maxlength: 50,
   },
   description: { type: String, maxlength: 500, default: "" },
-  date: {
+  dueDate: {
     type: Date,
     required: true,
     validate: {
@@ -20,7 +20,7 @@ const jobSchema = new Schema({
         // Custom validator to check if the date is in the future
         return value > new Date();
       },
-      message: "Date must be in the future",
+      message: "Due Date must be in the future",
     },
   },
   // Option for a job is repeating or not
@@ -57,7 +57,7 @@ const Job = model("Job", jobSchema);
 
 // FIXME Indices might need to be adjusted in the future
 Job.schema.index({ title: "text" }); // Create an index for text search on title
-Job.schema.index({ date: 1 }); // Create an index for sorting by date
+Job.schema.index({ dueDate: 1 }); // Create an index for sorting by date
 
 module.exports = Job;
 

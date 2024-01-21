@@ -10,7 +10,7 @@ function toggleRepeatingFrequency() {
 }
 
 function validateDateAndTime() {
-  const dateInput = document.getElementById("date");
+  const dateInput = document.getElementById("dueDate");
   const errorSpan = document.getElementById("date-error");
 
   // Check if date is in the future or, if today, if time is later than current time
