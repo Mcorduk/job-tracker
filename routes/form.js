@@ -33,7 +33,10 @@ checkDueJobs.start();
 // Handle POST request from the form submit
 router.post("/", async (req, res) => {
   try {
-    const newJob = createNewJob(req.body);
+    const newJob = createNewJob({
+      ...req.body,
+      dueDate: new Date(`${req.body.dueDate} ${req.body.time}`),
+    });
     await newJob.save();
 
     res.redirect("/form/success");
