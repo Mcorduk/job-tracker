@@ -6,6 +6,7 @@
 - [ ] ~~Create models for Jobs and Reminders~~
 - [ ] <=> Create CRUD API for Job Creation
 - [ ] Solve Job Frequency
+- [ ] Understand Cron Jobs Persistence between resets and etc (!)
 - [ ] Implement Job Listing Functionality
 - [ ] Learn how to use timers to schedule notifs.
 - [ ] Handle notification to users via Reminders (node-schedule?) (node-notifier)
@@ -25,15 +26,18 @@
 
 ## Low Priority
 
+- [ ] Fix code duplication at `getCronExpressions`
 - [ ] Add Time (Hour, minute, second) validation for `form/`
 - [ ] Improve HTML Semantics and accessibility for `form.ejs`
 - [ ] ~~Adjust cron for daylight savings (No daylight savings in Turkey)~~
+- [ ] Ignored invalid cron expressions, do come back to tests later
 
 ## General
 
 - [ ] Update README with better markdown
 - [ ] Add (express) unit tests for `app.js`
 - [ ] Test POST requests saving jobs and reminders to db
+- [ ] Learn what virtuals in mongoose does _properly_
 
 ## Optional
 
