@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
-const Job = require("../models/job");
-const isJobDue = require("../utils/isJobDue");
-const cron = require("cron");
+const checkDueJobs = require("../utils/checkDueJobs");
+const createNewJob = require("../utils/createNewJob");
 
 // body-parser middleware to parse form data
 router.use(bodyParser.urlencoded({ extended: true })); // extended: true to be able to deal with complex data structures in form
@@ -28,45 +27,14 @@ router.get("/success", (req, res, next) => {
   res.render("success", {});
 });
 
-// cron docs: https://www.npmjs.com/package/cron#-basic-usage
-new cron.CronJob(
-  "* * * * *", // job runs every minute, see: https://crontab.guru/#*_*_*_*_*
-  async () => {
-    try {
-      const activeJobs = await Job.find();
-
-      activeJobs.forEach(async (job) => {
-        if (isJobDue(job)) {
-          // Trigger notification (for simplicity, print to console)
-          console.log(
-            `Notification: Job "${job.title}" is due on ${new Date()}`,
-          );
-        }
-      });
-    } catch (error) {
-      console.error("Error in cron job:", error);
-    }
-  },
-  null,
-  true,
-); // Run in UTC time zone
+// Start the cron job
+checkDueJobs.start();
 
 // Handle POST request from the form submit
 router.post("/", async (req, res) => {
   try {
-    const { title, description, dueDate, time, repeating, repeatingFrequency } =
-      req.body;
-
-    const newJob = new Job({
-      title,
-      description,
-      dueDate: new Date(`${dueDate} ${time}`),
-      repeating: repeating === "on", // Convert checkbox value to a boolean
-      repeatingFrequency: repeating === "on" ? repeatingFrequency : null,
-    });
-
-    // Save the new job to database first to generate job._id values for Reminder
-    const savedJob = await newJob.save();
+    const newJob = createNewJob(req);
+    await newJob.save();
 
     res.redirect("/form/success");
   } catch (error) {
