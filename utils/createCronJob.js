@@ -1,29 +1,30 @@
 const cron = require("cron");
+const exp = require("./getCronExpressions");
 
-function createCronJob(date, jobFrequency) {
-  const selectedMinute = date.getMinutes();
-  const selectedHour = date.getHours();
-  const selectedDay = date.getDay(); // Day of Week: [0-6]/[Sunday to Saturday]
-  const selectedDate = date.getDate(); // Day of Month: [1-31]
-  const selectedMonth = date.getMonth + 1; // .getMonth is 0-11 but cron is 1-12
-
-  // cronExpressions tool, see: https://crontab.guru/#*_*_*_*_*
+function createCronJob(date, jobFrequency = null) {
+  if (!(date instanceof Date) || isNaN(date.getTime())) {
+    throw new Error("Invalid date parameter");
+  }
   let cronExpression;
+
   switch (jobFrequency) {
+    case null:
+      cronExpression = exp.getOneTimeExpression(date);
+      break;
     case "hourly":
-      cronExpression = `${selectedMinute} * * * *`;
+      cronExpression = exp.getHourlyExpression(date);
       break;
     case "daily":
-      cronExpression = `${selectedMinute} ${selectedHour} * * *`;
+      cronExpression = exp.getDailyExpression(date);
       break;
     case "weekly":
-      cronExpression = `${selectedMinute} ${selectedHour} * * ${selectedDay}`;
+      cronExpression = exp.getWeeklyExpression(date);
       break;
     case "monthly":
-      cronExpression = `${selectedMinute} ${selectedHour} ${selectedDate} * *`;
+      cronExpression = exp.getMonthlyExpression(date);
       break;
     case "yearly":
-      cronExpression = `${selectedMinute} ${selectedHour} ${selectedDate} ${selectedMonth} *`;
+      cronExpression = exp.getYearlyExpression(date);
       break;
     default:
       throw new Error(`Unsupported job frequency: ${jobFrequency}`);
@@ -35,6 +36,11 @@ function createCronJob(date, jobFrequency) {
       // Code for your job's actions
       console.log("Job executed at", new Date());
       // Replace with your actual job logic
+
+      // if jobFrequency is null, stop the job after execution
+      if (jobFrequency === null) {
+        job.stop();
+      }
     },
     null,
     true, // Run in UTC time zone
