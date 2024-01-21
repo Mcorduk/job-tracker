@@ -21,6 +21,12 @@ const checkDueJobs = new CronJob(
               job.dueDate,
               job.repeatingFrequency,
             );
+            const newRepeatingJob = createNewJob({
+              ...job._doc,
+              dueDate: nextDueDate,
+            });
+
+            await newRepeatingJob.save();
           }
         }
       });
