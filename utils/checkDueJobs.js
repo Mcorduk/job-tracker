@@ -2,6 +2,8 @@ const { CronJob } = require("cron");
 const Job = require("../models/job");
 const isJobDue = require("../utils/isJobDue");
 const notifyUser = require("../utils/notifyUser");
+const createNewJob = require("./createNewJob");
+const calcFutureDate = require("./calcFutureDate");
 
 const checkDueJobs = new CronJob(
   "* * * * *", // Run every minute
@@ -13,6 +15,13 @@ const checkDueJobs = new CronJob(
       activeJobs.forEach(async (job) => {
         if (isJobDue(job)) {
           notifyUser(job);
+
+          if (job.repeatingFrequency !== null) {
+            const nextDueDate = calcFutureDate(
+              job.dueDate,
+              job.repeatingFrequency,
+            );
+          }
         }
       });
     } catch (error) {
