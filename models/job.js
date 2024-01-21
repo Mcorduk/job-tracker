@@ -48,11 +48,6 @@ jobSchema.virtual("url").get(function () {
   return `/jobs/${this._id}`;
 });
 
-// Virtual to easily access the jobs associated reminders
-jobSchema.virtual("reminders").get(function () {
-  return this.model("Reminder").find({ jobId: this._id });
-});
-
 const Job = model("Job", jobSchema);
 
 // FIXME Indices might need to be adjusted in the future

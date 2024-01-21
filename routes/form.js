@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
 const Job = require("../models/job");
-const Reminder = require("../models/reminder");
 const isJobDue = require("../utils/isJobDue");
+const cron = require("cron");
 
 // body-parser middleware to parse form data
 router.use(bodyParser.urlencoded({ extended: true })); // extended: true to be able to deal with complex data structures in form
@@ -33,19 +33,10 @@ new cron.CronJob(
   "* * * * *", // job runs every minute, see: https://crontab.guru/#*_*_*_*_*
   async () => {
     try {
-      const activeJobs = await Job.find({ repeating: true });
+      const activeJobs = await Job.find();
 
       activeJobs.forEach(async (job) => {
         if (isJobDue(job)) {
-          // Create a single reminder for the current due date
-          console.log(job.date);
-          const reminder = new Reminder({
-            jobId: job._id,
-            reminderDate: new Date(),
-            notes: `I am a crone ran task created at ${new Date()} for job ${job.title}!`,
-          });
-          await reminder.save();
-
           // Trigger notification (for simplicity, print to console)
           console.log(
             `Notification: Job "${job.title}" is due on ${new Date()}`,
@@ -77,22 +68,6 @@ router.post("/", async (req, res) => {
     // Save the new job to database first to generate job._id values for Reminder
     const savedJob = await newJob.save();
 
-    const newReminder = new Reminder({
-      jobId: savedJob._id,
-      reminderDate: savedJob.dueDate,
-      notes: "I should be created by cron on repeating tasks!",
-    });
-
-    await newReminder.save();
-    //FIXME I don't even get evaluated, just sitting here
-    if (!repeating) {
-      const newReminder = new Reminder({
-        jobId: savedJob._id,
-        reminderDate: savedJob.dueDate, // Use job's date for non-repeating jobs
-        notes: "Don't forget about this(?) important task!",
-      });
-      await newReminder.save();
-    }
     res.redirect("/form/success");
   } catch (error) {
     if (error.name === "ValidationError") {
