@@ -1,11 +1,9 @@
 const express = require("express");
-const cron = require("cron");
 const router = express.Router();
 const bodyParser = require("body-parser");
 const Job = require("../models/job");
 const Reminder = require("../models/reminder");
 const isJobDue = require("../utils/isJobDue");
-const { now } = require("mongoose");
 
 // body-parser middleware to parse form data
 router.use(bodyParser.urlencoded({ extended: true })); // extended: true to be able to deal with complex data structures in form
@@ -38,11 +36,9 @@ new cron.CronJob(
       const activeJobs = await Job.find({ repeating: true });
 
       activeJobs.forEach(async (job) => {
-        // FIXME Form submitted is in activeJobs
-        // But only the test 1 minute job passes is JobDue
-        // Conclusion, fix isJobDue
         if (isJobDue(job)) {
           // Create a single reminder for the current due date
+          console.log(job.date);
           const reminder = new Reminder({
             jobId: job._id,
             reminderDate: new Date(),
@@ -52,7 +48,7 @@ new cron.CronJob(
 
           // Trigger notification (for simplicity, print to console)
           console.log(
-            `Notification: Job "${job.title}" is due on ${job.dueDate}`,
+            `Notification: Job "${job.title}" is due on ${new Date()}`,
           );
         }
       });
