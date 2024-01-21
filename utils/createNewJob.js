@@ -1,8 +1,8 @@
 const Job = require("../models/job");
 
-const createNewJob = (req) => {
+const createNewJob = (info) => {
   const { title, description, dueDate, time, repeating, repeatingFrequency } =
-    req.body;
+    info;
 
   const newJob = new Job({
     title,
