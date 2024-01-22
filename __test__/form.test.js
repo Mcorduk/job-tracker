@@ -24,20 +24,7 @@ describe("Form Submission", () => {
 
   it("should submit form successfully for +1 minute date", async () => {
     const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth();
-    const currentDate = now.getDate();
-    const currentHour = now.getHours();
-    const currentMinute = now.getMinutes() + 1;
-
-    // Create a new date with +1 minute
-    const futureDate = new Date(
-      currentYear,
-      currentMonth,
-      currentDate,
-      currentHour,
-      currentMinute,
-    );
+    const futureDate = now.setMinutes(now.getMinutes() + 1);
 
     const response = await request(app)
       .post("/form")
@@ -46,7 +33,7 @@ describe("Form Submission", () => {
         description:
           "Testing for a successful submit of job that is a minute from now.",
         dueDate: futureDate.toISOString().split("T")[0],
-        time: `${currentHour}:${currentMinute}`,
+        time: `${futureDate.getHour()}:${futureDate.getMinutes()}`,
         repeating: "on",
         repeatingFrequency: "daily",
       });
@@ -114,6 +101,7 @@ describe("Form Submission", () => {
     expect(response.text).toContain("Invalid Date");
   });
 });
+
 afterAll(async () => {
   await mongoose.disconnect();
 });

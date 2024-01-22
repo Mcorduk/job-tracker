@@ -37,17 +37,13 @@ const addMonthsToDate = (date, monthsToAdd) => {
     newMonth >= 12
       ? date.getFullYear() + Math.floor(newMonth / 12)
       : date.getFullYear();
-  const newMonthWithinYear = newMonth % 12;
-  const newDate = new Date(newYear, newMonthWithinYear, date.getDate());
+  const monthInNextYear = newMonth % 12;
+  const newDate = new Date(newYear, monthInNextYear, date.getDate());
   return newDate;
 };
 
 const addYearsToDate = (date, yearsToAdd) => {
-  return new Date(
-    date.getFullYear() + yearsToAdd,
-    date.getMonth(),
-    date.getDate(),
-  );
+  return new Date(date.setFullYear(date.getFullYear() + yearsToAdd));
 };
 
 module.exports = calcFutureDate;

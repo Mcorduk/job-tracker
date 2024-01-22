@@ -17,7 +17,7 @@ const jobSchema = new Schema({
     required: true,
     validate: {
       validator(value) {
-        return value > Date.now;
+        return value > Date.now();
       },
       message: "Due Date must be in the future",
     },
@@ -27,11 +27,7 @@ const jobSchema = new Schema({
     default: false,
     validate: {
       validator(value) {
-        let message;
         if (value && !this.repeatingFrequency) {
-          return false;
-        } else if (!value && this.repeatingFrequency) {
-          message = "Repeating frequency set on a non-repeating job.";
           return false;
         }
         return true;

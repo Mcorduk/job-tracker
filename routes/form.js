@@ -9,15 +9,14 @@ router.use(bodyParser.urlencoded({ extended: true })); // extended: true to be a
 
 // Handle GET request for the form page
 router.get("/", (req, res, next) => {
+  function formatDateForInput(date) {
+    return date.toISOString().split("T")[0];
+  }
   const now = new Date();
-  const minDate = now.toISOString().split("T")[0]; // Extract only the date part
-  const maxDate = new Date(
-    now.getFullYear() + 10,
-    now.getMonth(),
-    now.getDate(),
-  )
-    .toISOString()
-    .split("T")[0];
+  const minDate = formatDateForInput(now);
+  const maxDate = formatDateForInput(
+    new Date(now.setFullYear(now.getFullYear() + 10)),
+  );
 
   res.render("form", { minDate, maxDate });
 });

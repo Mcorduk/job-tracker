@@ -10,7 +10,8 @@ const checkDueJobs = new CronJob(
   async () => {
     try {
       console.log("checking for due jobs...");
-      const activeJobs = await Job.find({ dueDate: { $gte: new Date() } });
+      // FIXME { dueDate: { $gte: new Date() } }
+      const activeJobs = await Job.find();
 
       activeJobs.forEach(async (job) => {
         if (isJobDue(job)) {
