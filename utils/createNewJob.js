@@ -1,19 +1,18 @@
 const Job = require("../models/job");
-const mongoose = require("mongoose");
 
-const createNewJob = (info) => {
-  const { title, description, dueDate, time, repeating, repeatingFrequency } =
-    info;
+const createNewJob = (jobObject) => {
+  const { title, description, dueDate, repeating, repeatingFrequency } =
+    jobObject;
 
-  const repeatingVal = repeating === "on" || repeating === true;
+  // Convert checkbox value to a boolean
+  const isRepeating = repeating === "on" || repeating === true;
 
   const newJob = new Job({
-    _id: new mongoose.Types.ObjectId(),
     title,
     description,
     dueDate,
-    repeating: repeatingVal, // Convert checkbox value to a boolean
-    repeatingFrequency: repeatingVal ? repeatingFrequency : null,
+    repeating: isRepeating,
+    repeatingFrequency: isRepeating ? repeatingFrequency : null,
   });
 
   return newJob;
