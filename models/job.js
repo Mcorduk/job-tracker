@@ -17,34 +17,38 @@ const jobSchema = new Schema({
     required: true,
     validate: {
       validator(value) {
-        // Custom validator to check if the date is in the future
-        return value > new Date();
+        return value > Date.now;
       },
       message: "Due Date must be in the future",
     },
   },
-  // Option for a job is repeating or not
   repeating: {
     type: Boolean,
     default: false,
     validate: {
       validator(value) {
-        return !(value && !this.repeatingFrequency); // Ensure frequency is present if repeating is true
+        let message;
+        if (value && !this.repeatingFrequency) {
+          message = "Missing repeating frequency for a repeating job.";
+          return false;
+        } else if (!value && this.repeatingFrequency) {
+          message = "Repeating frequency set on a non-repeating job.";
+          return false;
+        }
+        return true;
       },
-      message: "Repeating jobs must have a repeating frequency",
+      message: message,
     },
   },
-
   repeatingFrequency: {
     type: String,
     enum: ["hourly", "daily", "weekly", "monthly", "yearly"],
-    default: null, // Default to empty string for non-repeating jobs
+    default: null,
   },
 });
 
-// Virtual for job's URL
 jobSchema.virtual("url").get(function () {
-  // We don't use an arrow function as we'll need the this object
+  // We don't use an arrow function as we'll need the "this" object
   return `/jobs/${this._id}`;
 });
 
