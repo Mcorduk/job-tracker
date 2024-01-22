@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const checkDueJobs = require("../utils/checkDueJobs");
 const createNewJob = require("../utils/createNewJob");
 
-// body-parser middleware to parse form data
+// middleware to parse form data
 router.use(bodyParser.urlencoded({ extended: true })); // extended: true to be able to deal with complex data structures in form
 
 // Handle GET request for the form page

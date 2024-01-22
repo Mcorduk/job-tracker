@@ -29,7 +29,6 @@ const jobSchema = new Schema({
       validator(value) {
         let message;
         if (value && !this.repeatingFrequency) {
-          message = "Missing repeating frequency for a repeating job.";
           return false;
         } else if (!value && this.repeatingFrequency) {
           message = "Repeating frequency set on a non-repeating job.";
@@ -37,13 +36,22 @@ const jobSchema = new Schema({
         }
         return true;
       },
-      message: message,
+      message: "Missing frequency for repeating job.",
     },
   },
   repeatingFrequency: {
     type: String,
     enum: ["hourly", "daily", "weekly", "monthly", "yearly"],
     default: null,
+    validate: {
+      validator(value) {
+        if (value && !this.repeating) {
+          return false;
+        }
+        return true;
+      },
+      message: "Frequency set on non-repeating job.",
+    },
   },
 });
 
@@ -53,7 +61,6 @@ jobSchema.virtual("url").get(function () {
 });
 
 const Job = model("Job", jobSchema);
-
 // Apply the compound index for efficient due date prioritization:
 Job.schema.index({ dueDate: 1, _id: 1 }, { name: "dueDate_id_index" });
 

@@ -28,6 +28,7 @@
 - [ ] Add Time (Hour, minute, second) validation for `form/`
 - [ ] Improve HTML Semantics and accessibility for `form.ejs`
 - [ ] Restructure utils
+- [ ] Reset HTML form input values once submitted
 
 ## General
 
