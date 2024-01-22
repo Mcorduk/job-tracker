@@ -12,12 +12,9 @@ const formRouter = require("./routes/form");
 const app = express();
 
 // db setup
-// Asynchronous function to connect to MongoDB
 async function main() {
   await connectToMongo();
 }
-
-// Call the main function and handle any potential errors
 main().catch((err) => console.log(err));
 
 // view engine setup
