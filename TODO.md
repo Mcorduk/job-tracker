@@ -6,14 +6,11 @@
 - [ ] ~~Create models for Jobs and Reminders~~
 - [ ] ~~Create CRUD API for Job Creation~~
 - [ ] ~~Solve Job Frequency~~
-- [ ] Understand Cron Jobs Persistence between resets and etc (!)
 - [ ] Implement Job Listing Functionality
 - [ ] ~~Learn how to use timers to schedule notifs.~~
 - [ ] ~~Handle notification to users via Reminders (node-schedule?) (node-notifier)~~
-- [ ] Learn How to Lift up MongoDB with Docker compose (MOOC - Docker Section)
-- [ ] Dockerize Your Application
+- [ ] ~~Learn How to Lift up MongoDB with Docker compose (MOOC - Docker Section)~~
 - [ ] Debug and Optimize
-- [ ] Work on additional features using different branches
 
 ## Medium Priority
 
@@ -43,6 +40,7 @@
 - [ ] ~~Add a "created at" key value to jobs~~
 - [ ] ~~A library to handle job frequency feature~~
 - [ ] Add Edit Job functionality, if you do Add modifiedAt to Job Schema
+- [ ] Work on additional features using different branches
 
 ## Wishful Thinking
 
