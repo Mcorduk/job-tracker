@@ -1,8 +1,9 @@
 const express = require("express");
-const router = express.Router();
 const bodyParser = require("body-parser");
 const checkDueJobs = require("../utils/checkDueJobs");
 const createNewJob = require("../utils/createNewJob");
+
+const router = express.Router();
 
 // middleware to parse form data
 router.use(bodyParser.urlencoded({ extended: true })); // extended: true to be able to deal with complex data structures in form
@@ -32,9 +33,11 @@ checkDueJobs.start();
 // Handle POST request from the form submit
 router.post("/", async (req, res) => {
   try {
+    const formObject = req.body;
+
     const newJob = createNewJob({
-      ...req.body,
-      dueDate: new Date(`${req.body.dueDate} ${req.body.time}`),
+      ...formObject,
+      dueDate: new Date(`${formObject.dueDate} ${formObject.time}`),
     });
     await newJob.save();
 
