@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  job_mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: job_tracker
+
+volumes:
+  mongo-data:

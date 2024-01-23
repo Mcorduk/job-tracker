@@ -29,6 +29,7 @@
 - [ ] Improve HTML Semantics and accessibility for `form.ejs`
 - [ ] Restructure utils
 - [ ] Reset HTML form input values once submitted
+- [ ] repeating Monthly is a little wonky
 
 ## General
 
