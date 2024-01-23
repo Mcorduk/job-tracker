@@ -8,6 +8,7 @@ const connectToMongo = require("./db");
 // routers
 const indexRouter = require("./routes/index");
 const formRouter = require("./routes/form");
+const jobsRoute = require("./routes/jobs-list");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/form", formRouter);
+app.use(jobsRoute);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
