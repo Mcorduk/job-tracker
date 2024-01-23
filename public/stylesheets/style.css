@@ -1,8 +1,57 @@
+#root {
+  max-height: 50vh;
+}
+
+/* Reset some default margin and padding for the entire page */
+body,
+h1,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: row;
+  max-height: 100vh;
+  overflow: hidden;
+  /* Prevent scrolling */
+}
+
+nav {
+  padding: 20px;
+  min-height: 100vh;
+}
+
+main {
+  padding: 20px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin-right: 20px;
 }
 
 a {
-  color: #00B7FF;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+a:hover {
+  text-decoration: underline;
 }
