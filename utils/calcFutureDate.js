@@ -1,13 +1,10 @@
-const MILLISECONDS_PER_DAY = 86400000;
-const MILLISECONDS_PER_HOUR = 3600000;
-
 const calcFutureDate = (originalDate, repeatingFrequency) => {
   switch (repeatingFrequency) {
-    case "daily":
-      return addDaysToDate(originalDate, 1);
-
     case "hourly":
       return addHoursToDate(originalDate, 1);
+
+    case "daily":
+      return addDaysToDate(originalDate, 1);
 
     case "weekly":
       return addDaysToDate(originalDate, 7);
@@ -24,11 +21,14 @@ const calcFutureDate = (originalDate, repeatingFrequency) => {
 };
 
 const addDaysToDate = (date, daysToAdd) => {
-  return new Date(date.getTime() + daysToAdd * MILLISECONDS_PER_DAY);
+  const newDate = new Date(date.getTime());
+  newDate.setDate(date.getDate() + daysToAdd);
+  return newDate;
 };
 
 const addHoursToDate = (date, hoursToAdd) => {
-  return new Date(date.getTime() + hoursToAdd * MILLISECONDS_PER_HOUR);
+  date.setHours(date.getHours() + hoursToAdd);
+  return date;
 };
 
 const addMonthsToDate = (date, monthsToAdd) => {
