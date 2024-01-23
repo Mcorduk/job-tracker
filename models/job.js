@@ -8,7 +8,7 @@ const jobSchema = new Schema({
   title: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: 4,
     maxlength: 50,
   },
   description: { type: String, maxlength: 500, default: "" },
