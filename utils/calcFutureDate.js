@@ -31,6 +31,7 @@ const addHoursToDate = (date, hoursToAdd) => {
   return date;
 };
 
+// TODO I can be improved
 const addMonthsToDate = (date, monthsToAdd) => {
   const newMonth = date.getMonth() + monthsToAdd;
   const newYear =
