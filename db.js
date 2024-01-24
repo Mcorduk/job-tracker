@@ -1,11 +1,4 @@
 const mongoose = require("mongoose");
-// Load environment variables from a .env file using the dotenv package
-require("dotenv").config();
-
-if (!process.env.MONGODB_URI) {
-  console.error("Error: MONGODB_URI is not set in the environment variables.");
-  process.exit(1);
-}
 
 // Set `strictQuery: false` to globally opt into filtering by properties that aren't in the schema
 // Included because it removes preparatory warnings for Mongoose 7.
@@ -13,7 +6,7 @@ if (!process.env.MONGODB_URI) {
 mongoose.set("strictQuery", false);
 
 console.log("Connecting to MongoDB...");
-const mongoURL = process.env.MONGODB_URI;
+const mongoURL = "mongodb://localhost:27017/job_tracker";
 
 async function connectToMongo() {
   try {
