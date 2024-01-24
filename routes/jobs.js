@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
       }),
     }));
 
-    res.render("due-jobs", { dueJobs: formattedDueJobs });
+    res.render("jobs", { dueJobs: formattedDueJobs, message: null });
   } catch (error) {
     console.error("Error fetching due jobs:", error);
     res.status(500).send("Internal Server Error");

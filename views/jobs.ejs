@@ -4,12 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Tracker - Due Jobs</title>
   <link rel="icon" type="image/x-icon" href="/images/title-icon.svg">
-
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="/stylesheets/animated-background.css">
-
-  <title>Job Tracker - Due Jobs</title>
+  <script src="/javascripts/sseAlertScript.js" defer></script>
 </head>
 
 <body>
@@ -28,10 +27,12 @@
     </ul>
   </nav>
   <main>
-    <h1>Due Jobs</h1>
+    <h1>View Jobs</h1>
     <h3>
       <p>
-        <%= message %><a href="/form">Add Jobs</a> form.
+        <% if (message) { %>
+          <%= message %><a href="/form">Add Jobs</a> form.
+            <% } %>
       </p>
     </h3>
     <ul>
