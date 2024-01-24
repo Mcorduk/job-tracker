@@ -39,8 +39,14 @@ __test__
 
 .prettierignore
 .prettierrc
+<<<<<<< HEAD
 
 .eslintignore
 .eslintrc.js
 
 jest.config.js
+=======
+jest.config.js
+.eslintignore
+.eslintrc.js
+>>>>>>> 5381a1914b24af960c7f9a84cc105f2e407e4be8
