@@ -51,5 +51,5 @@ app.use((err, req, res, next) => {
 });
 
 console.log("Express app listening on port 3000");
-console.log("Start using your app at: http://localhost:3000/form");
+console.log("Start using your app at: http://localhost:3000/");
 module.exports = app;
