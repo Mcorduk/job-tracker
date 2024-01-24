@@ -8,6 +8,13 @@ router.get("/", async (req, res) => {
   try {
     const dueJobs = await Job.find({ dueDate: { $gt: new Date() } });
 
+    if (dueJobs.length === 0) {
+      return res.render("due-jobs", {
+        dueJobs: [],
+        message: "No jobs found. Please add more using ",
+      });
+    }
+
     const formattedDueJobs = dueJobs.map((job) => ({
       ...job._doc,
       dueDate: job.dueDate.toLocaleString(undefined, {
