@@ -6,34 +6,26 @@
 - [ ] ~~Create models for Jobs and Reminders~~
 - [ ] ~~Create CRUD API for Job Creation~~
 - [ ] ~~Solve Job Frequency~~
-- [ ] Implement Job Listing Functionality
+- [ ] ~~Implement Job Listing Functionality~~
 - [ ] ~~Learn how to use timers to schedule notifs.~~
 - [ ] ~~Handle notification to users via Reminders (node-schedule?) (node-notifier)~~
 - [ ] ~~Learn How to Lift up MongoDB with Docker compose (MOOC - Docker Section)~~
-- [ ] Debug and Optimize
+- [ ] ~~Debug and Optimize~~
 
 ## Medium Priority
 
 - [ ] ~~Add indication that Job was submitted to db cia form or encountered an error~~
 - [ ] ~~Recheck indexing for best possible optimization~~
 - [ ] ~~Decide notification channel: Print(default), desktop notif, alert, email?~~
-- [ ] Add "custom" pane to repeating jobs:
-      https://support.microsoft.com/en-gb/office/recurring-tasks-in-planner-9f2561ee-45ee-4834-955b-c457f8bb0490
 
 ## Low Priority
 
-- [ ] Add Time (Hour, minute, second) validation for `form/`
-- [ ] Improve HTML Semantics and accessibility for `form.ejs`
-- [ ] Restructure utils
-- [ ] Reset HTML form input values once submitted
-- [ ] repeating Monthly is a little wonky
+- [ ] ~~Improve HTML Semantics and accessibility for `form.ejs`~~
 
 ## General
 
-- [ ] Update README with better markdown
-- [ ] Add (express) unit tests for `app.js`
+- [ ] ~~Update README with better markdown~~
 - [ ] ~~Test POST requests saving jobs to db~~
-- [ ] Learn what virtuals in mongoose does
 
 ## Optional
 
@@ -41,6 +33,8 @@
 - [ ] ~~A library to handle job frequency feature~~
 - [ ] Add Edit Job functionality, if you do Add modifiedAt to Job Schema
 - [ ] Work on additional features using different branches
+- [ ] Add "custom" pane to repeating jobs:
+      https://support.microsoft.com/en-gb/office/recurring-tasks-in-planner-9f2561ee-45ee-4834-955b-c457f8bb0490
 
 ## Wishful Thinking
 
