@@ -1,37 +1,41 @@
-`# Job Reminder App
+# Job Reminder App
 
 **Overview:**
 This is a simple Job Reminder App that allows users to register jobs and set reminder dates for those jobs. Notifications are sent to the user when the reminder dates are reached.
 
 **Requirements:**
+
 - Node.js and npm installed
-- MongoDB installed locally
-- Docker and Docker Compose installed (optional for MongoDB setup)
+- Docker and Docker Compose installed
+- MongoDB installed (optional if using docker compose)
+- Ports: Make sure ports 3000 and 27017 is not used by a different process.
 
 **Setup:**
+
 1. Install Dependencies:
+
    ```bash
-   npm install `
+   npm install
 
-1.  MongoDB Setup:
+   ```
 
-    -   Docker Compose : Use Docker Compose to set up MongoDB. Make sure Docker and Docker Compose are installed.
+2. MongoDB Setup:
 
-    bash
+   - Docker Compose : Use Docker Compose to set up MongoDB.
+   - Local MongoDB : Optionally use MongoDB locally.
 
-    -   -   `docker-compose up -d`
+   ```bash
+   docker-compose up -d
+   ```
 
-        -   Configure Environment Variables: Copy the `.env.example` file to `.env` and update the values accordingly.
+3. Run the App:
 
-    bash
+   bash
 
-    -   `cp .env.example .env`
+   ```bash
+   npm start
 
-    -   Run the App:
-
-    bash
-
-1.  `npm start`
+   ```
 
 **Usage:**
 
@@ -40,11 +44,10 @@ This is a simple Job Reminder App that allows users to register jobs and set rem
 
 **Notes:**
 
--   Notifications are currently set to print. For email notifications, additional configuration is required (not implemented in this version).
--   Authentication is not implemented as the app assumes a single user scenario.
--   MongoDB can be set up either locally or using Docker Compose. Choose the option that suits your preference.
--   The app is designed to run locally. No API is exposed externally.
--   CI/CD tools can be integrated based on your preference, but they are optional for this task.
+- Notifications are currently set to print on server console as well as alert in browser.
+- Authentication is not implemented as the app assumes a single user scenario.
+- MongoDB can be set up either locally or using Docker Compose. Choose the option that suits your preference.
+- The app is designed to run locally. No API is exposed externally.
 
 **Author:** Muhammet Corduk
 
