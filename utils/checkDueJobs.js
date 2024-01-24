@@ -1,7 +1,7 @@
 const { CronJob } = require("cron");
 const Job = require("../models/job");
 const isJobDue = require("../utils/isJobDue");
-const notifyUser = require("../utils/notifyUser");
+const { notifyUser } = require("../utils/notifyUser");
 const createNewJob = require("./createNewJob");
 const calcFutureDate = require("./calcFutureDate");
 
