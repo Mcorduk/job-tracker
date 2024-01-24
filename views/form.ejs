@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Job Tracker - Add Jobs</title>
   <link rel="icon" type="image/x-icon" href="/images/title-icon.svg">
-
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="/stylesheets/animated-background.css">
   <script src="/javascripts/formscripts.js" defer></script>
+  <script src="/javascripts/sseAlertScript.js" defer></script>
 </head>
 
 <body>
@@ -27,37 +29,30 @@
   </nav>
   <main>
     <h1>Create New Job</h1>
-
     <form action="/form" method="POST">
       <div>
         <label for="title">Job Title:</label>
         <input type="text" id="title" name="title" required minlength="4" maxlength="50">
         <span class="error-message" id="title-error"></span>
       </div>
-
       <div>
         <label for="description">Description:</label>
         <textarea id="description" name="description" maxlength="500"></textarea>
       </div>
-
       <!-- Not using type="datetime-local" due to min and max not respecting restrictions -->
       <div>
         <label for="dueDate">Due Date:</label>
         <input type="date" id="dueDate" name="dueDate" required min="<%= minDate %>" max="<%= maxDate %>">
         <span class="error-message" id="date-error"></span>
       </div>
-
       <div>
         <label for="time">Time:</label>
         <input type="time" id="time" name="time" required>
       </div>
-
-
       <div>
         <label for="repeating">Repeating:</label>
         <input type="checkbox" id="repeating" name="repeating" onclick="toggleRepeatingFrequency()">
       </div>
-
       <div id="repeatingFrequencyContainer" style="display: none;">
         <label for="repeatingFrequencySelect">Repeating Frequency:</label>
         <select id="repeatingFrequencySelect" name="repeatingFrequency">
@@ -68,7 +63,6 @@
           <option value="yearly">Yearly</option>
         </select>
       </div>
-
       <button type="submit">Create Job</button>
     </form>
   </main>
