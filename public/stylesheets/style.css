@@ -55,3 +55,25 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+span {
+  color: white;
+  font-weight: bold;
+}
+
+input#title {
+  margin-left: 20px;
+}
+
+
+input#dueDate {
+  margin-left: 13px;
+}
+
+input#time {
+  margin-left: 45px;
+}
+
+input#repeating {
+  margin-left: 8px;
+}
