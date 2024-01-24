@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "NODE_ENV=development node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "serverstart": "DEBUG=express-locallibrary-tutorial:* npm run devstart",
     "test": "jest --detectOpenHandles"
@@ -22,16 +22,5 @@
     "http-errors": "~1.6.3",
     "mongoose": "^8.1.0",
     "morgan": "~1.9.1"
-  },
-  "devDependencies": {
-    "eslint": "^8.56.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-import-resolver-node": "^0.3.9",
-    "eslint-plugin-import": "^2.29.1",
-    "jest": "^29.7.0",
-    "nodemon": "^3.0.3",
-    "prettier": "3.2.4",
-    "supertest": "^6.3.4"
   }
 }

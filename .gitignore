@@ -35,6 +35,12 @@ npm-debug.log
 .DS_Store
 
 .env
-# documentation
-jobFrequency.md
-cron.js
+__test__
+
+.prettierignore
+.prettierrc
+
+.eslintignore
+.eslintrc.js
+
+jest.config.js
