@@ -1,5 +1,7 @@
 # Job Reminder App
 
+Photos will be added here.
+
 **Overview:**
 This is a simple Job Reminder App that allows users to register jobs and set reminder dates for those jobs. Notifications are sent to the user when the reminder dates are reached.
 
